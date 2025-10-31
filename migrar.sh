@@ -12,7 +12,12 @@ while IFS= read -r repo || [ -n "$repo" ]; do
   [ -z "$repo" ] && continue
 
   echo "🔹 Clonando $repo ..."
-  git clone --depth 1 "https://github.com/$USER/$repo.git" "temp/$repo" || continue
+  echo "Intentando clonar https://github.com/$USER/$repo.git"
+
+  if ! git clone --depth 1 "https://github.com/$USER/$repo.git" "temp/$repo"; then
+    echo "❌ Error: no se pudo clonar $repo"
+    continue
+  fi
 
   # Detectar unidad según el número del nombre del repo (admite 'ejercicio' y 'ejercicios')
   if [[ "$repo" == *"05"* ]]; then
@@ -37,4 +42,6 @@ done < "$REPOS_FILE"
 # Limpiar carpeta temporal
 rm -rf temp
 
+echo ""
 echo "✅ ¡Listo! Todos los ejercicios fueron migrados correctamente."
+echo "Si alguno falló, revisa los mensajes ❌ arriba."
