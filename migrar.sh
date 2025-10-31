@@ -6,13 +6,15 @@ REPOS_FILE="repos.txt"
 
 mkdir -p temp
 
-while read -r repo; do
+# Leer lista de repositorios
+while IFS= read -r repo || [ -n "$repo" ]; do
+  repo=$(echo "$repo" | tr -d '\r')
   [ -z "$repo" ] && continue
 
   echo "🔹 Clonando $repo ..."
-  git clone --depth 1 https://github.com/$USER/$repo.git temp/$repo
+  git clone --depth 1 "https://github.com/$USER/$repo.git" "temp/$repo" || continue
 
-  # Detectar unidad automáticamente
+  # Detectar unidad según el número del nombre del repo (admite 'ejercicio' y 'ejercicios')
   if [[ "$repo" == *"05"* ]]; then
     UNIT="unidad_05"
   elif [[ "$repo" == *"04"* ]]; then
@@ -32,5 +34,7 @@ while read -r repo; do
 
 done < "$REPOS_FILE"
 
+# Limpiar carpeta temporal
 rm -rf temp
+
 echo "✅ ¡Listo! Todos los ejercicios fueron migrados correctamente."
