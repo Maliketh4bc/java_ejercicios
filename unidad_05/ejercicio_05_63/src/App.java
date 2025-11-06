@@ -32,9 +32,7 @@ public class App {  //SIX SEVEEEEEEEEN
             if(i <= max && max==num1){
 
                 for(int j=0; j<numSmax; j++) System.out.printf(" ");
-
                 for(int j=0; j<numAmax; j++) System.out.printf("*");
-
                 for(int j=0; j<numSmax; j++) System.out.printf(" ");
 
                 if(i == max) System.out.print(" ");
@@ -46,9 +44,7 @@ public class App {  //SIX SEVEEEEEEEEN
                 numAmin = cont*2 -1;
 
                 for(int j=0; j<numSmin; j++) System.out.printf(" ");
-
                 for(int j=0; j<numAmin; j++) System.out.printf("*");
-
                 for(int j=0; j<numSmax; j++) System.out.printf(" ");
             }
 
@@ -62,20 +58,15 @@ public class App {  //SIX SEVEEEEEEEEN
                 numAmin = cont*2 -1;
 
                 for(int j=0; j<numSmin; j++) System.out.printf(" ");
-
                 for(int j=0; j<numAmin; j++) System.out.printf("*");
-
                 for(int j=0; j<numSmin+1; j++) System.out.printf(" ");
             }
 
             if(i <= max && max==num2){
 
                 for(int j=0; j<numSmax; j++) System.out.printf(" ");
-
                 for(int j=0; j<numAmax; j++) System.out.printf("*");
-
                 for(int j=0; j<numSmax; j++) System.out.printf(" ");
-
                 if(i == max) System.out.print(" ");
             }
         
