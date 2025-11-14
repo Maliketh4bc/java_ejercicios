@@ -1,9 +1,10 @@
 public class App {
 
     static int snake = 0;
-    static int position = 0;
-    static int lastPosition = 0;
-    static int angle = 0;
+    static double position = 0;
+    static double lastPosition = 0;
+    static double angle = 0;
+    static double seno = 0;
 
     static final String CLEAR_SCREEN = "\033[H\033[2J";
     static char head = '@';
@@ -15,9 +16,14 @@ public class App {
 
         for(int i=0;i<snake; i++){
 
+            seno = Math.sin(Math.toRadians(angle));
+            position = (seno*10)+15;
+
             for(int j=0; j<position; j++){
                 System.out.print(" ");
             }
+
+            angle += 30;
 
             System.out.printf("%s",(i==0)?head:body);
 
