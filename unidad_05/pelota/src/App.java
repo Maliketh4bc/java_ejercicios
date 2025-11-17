@@ -7,6 +7,7 @@ public class App {
     static int vy = 2;
     static int x = ancho/2;
     static int y = alto/2;
+    static boolean paint = false;
 
     public static void limpiarPantalla() {
         try {
@@ -30,8 +31,9 @@ public class App {
         for(int i=1; i<=alto; i++){
             
             for(int j=1; j<=ancho; j++){
-
-                System.out.printf("%s", (i==1 || i==alto || j==1 || j==ancho)?"* ":(i==y && j==x)?"O ":"  ");
+                if(x>=ancho-2) paint = true; else paint = false;
+                if(y>=alto-2) paint = true; else paint = false;
+                System.out.printf("%s", ((i==1 || i==alto || j==1 || j==ancho) && paint==true)?"@ ":(i==1 || i==alto || j==1 || j==ancho)?"* ":(i==y && j==x)?"O ":"  ");
                 
             }
             
