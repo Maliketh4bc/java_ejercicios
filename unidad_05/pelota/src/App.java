@@ -1,6 +1,5 @@
 public class App {
 
-    
     static int ancho = 20;
     static int alto = 20;
     static int vx = 1;
@@ -31,31 +30,30 @@ public class App {
         for(int i=1; i<=alto; i++){
             
             for(int j=1; j<=ancho; j++){
-                if(x>=ancho-2) paint = true; else paint = false;
-                if(y>=alto-2) paint = true; else paint = false;
-                System.out.printf("%s", ((i==1 || i==alto || j==1 || j==ancho) && paint==true)?"@ ":(i==1 || i==alto || j==1 || j==ancho)?"* ":(i==y && j==x)?"O ":"  ");
+                
+                if(i==1 || i==alto || j==1 || j==ancho){
+                    System.out.print("* ");
+                }else if(i==y && j==x){
+                    System.out.print("O ");
+                }else{
+                    System.out.print("  ");
+                }
                 
             }
-            
             System.out.println();
         }
 
     }
 
     public static void main(String[] args) throws Exception {
-
         do{
             limpiarPantalla();
             if(x<=2 || x>=ancho-1) vx *= -1;
             if(y<=2 || y>=alto-1) vy *= -1;
-
             x += vx;
             y += vy;
-
             printBox();
             Thread.sleep(300);
         }while(true);
-       
-
     }
 }
