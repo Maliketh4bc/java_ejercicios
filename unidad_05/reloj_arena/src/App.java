@@ -1,9 +1,7 @@
 public class App {
 
-    static int max = 10;
-    static int numSand = 8;
-    static int aux = 1;
-    static int cont = 0;
+    static int max = 20;
+    static int mitad = max/2;
 
     public static void limpiarPantalla() {
         try {
@@ -24,8 +22,8 @@ public class App {
 
     public static void printClock(){
 
-        for(int i=max; i>1; i--){
-            int numS = max - i;
+        for(int i=mitad; i>=1; i--){
+            int numS = mitad - i;
             int numA = i*2 -1;
 
             for(int j=0; j<numS; j++){
@@ -33,15 +31,19 @@ public class App {
             }
             
             for(int j=0; j<numA; j++){
-                System.out.printf("%s", ((i==0 || j==0 || i==max || j==numA-1) || max-i<=numSand)?"*":" ");
+                if(i==1 || j==0 || i==mitad || j==numA-1){
+                    System.out.print("*");
+                }else{
+                    System.out.print(" ");
+                }
             }
             
             
             if(i!=1)System.out.println();
         }
         
-        for(int i=1; i<max; i++){
-            int numS = max - i;
+        for(int i=1; i<=mitad; i++){
+            int numS = mitad - i;
             int numA = i*2 -1;
 
             for(int j=0; j<numS; j++){
@@ -49,7 +51,11 @@ public class App {
             }
             
             for(int j=0; j<numA; j++){
-                System.out.printf("%s", ((i==0 || j==0 || i==max || j==numA-1) || i>=numSand)?"*":" ");
+                if(i==1 || j==0 || i==mitad || j==numA-1){
+                    System.out.print("*");
+                }else{
+                    System.out.printf(" ");
+                }
             }
 
             System.out.println();
@@ -62,8 +68,6 @@ public class App {
             limpiarPantalla();
             
             printClock();
-            if(numSand==0) aux = 1; else if(numSand==8) aux *= -1;
-            numSand += aux;
             Thread.sleep(1000);
         }while(true);
         
