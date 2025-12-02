@@ -1,8 +1,8 @@
 {
     "java.project.sourcePaths": [
-        "unidad_05/serpiente/src",
-        "unidad_05/ejercicio_05_59/src",
-        "unidad_05/reloj_arena/src"
+        "unidad_05\\ejercicio_05_59\\src",
+        "unidad_05\\reloj_arena\\src",
+        "unidad_05\\serpiente\\src"
     ],
     "java.project.referencedLibraries": []
 }
