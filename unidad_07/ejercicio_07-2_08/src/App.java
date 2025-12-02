@@ -10,6 +10,8 @@ public class App {
     static int letraCasilla = 0;
     static int numCasilla = 0;
 
+    static int diagonales[][] = new int[7][7];
+
     static boolean color = false;
 
     public static void main(String[] args) throws Exception {
