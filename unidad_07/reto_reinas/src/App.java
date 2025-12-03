@@ -15,6 +15,7 @@ public class App {
     static int letraAleatorio = 0;
     
     public static boolean color = false;
+    public static boolean posible = true;
 
 
     public static void main(String[] args) throws Exception {
@@ -84,7 +85,13 @@ public class App {
             while (aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8) {
                 aux1 += (i==0 || i==3)?num1:0;
                 aux2 += (i==1 || i==2)?num2:0;
-                if((aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8) && casilla[aux1][aux2] != 1)casilla[aux1][aux2] = 2;
+
+                if(casilla[aux1][aux2] == 1){
+                    casilla[aux1][aux2] = 200;
+                    posible = false;
+                }else if((aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8) && casilla[aux1][aux2] != 1){
+                    casilla[aux1][aux2] = 2;
+                }
                 if(aux1 == numCasilla && aux2 == letraCasilla) casilla[aux1][aux2] = 1;
             }
         }
@@ -107,11 +114,13 @@ public class App {
 
         for(int i=0; i<8; i++){
             for(int j=0; j<8; j++){
-                if(casilla[i][j] == 0){
-                    numCasilla = i;
-                    letraCasilla = j;
-                    movReina();
-                }
+                do{ 
+                    if(casilla[i][j] == 0){
+                        numCasilla = i;
+                        letraCasilla = j;
+                        movReina();
+                    }
+                }while(posible);
             }
         }
 
