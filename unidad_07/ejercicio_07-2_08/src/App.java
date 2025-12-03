@@ -6,12 +6,13 @@ public class App {
     public static final String RESET = "\033[0m";
 
     static int casilla[][] = new int[8][8];
+
     static char letraCasillaInput = ' ';
     static int letraCasilla = 0;
     static int numCasilla = 0;
 
-    static int diagonales[][] = new int[7][7];
-
+    static char letraFinal = ' ';
+    
     static boolean color = false;
 
     public static void main(String[] args) throws Exception {
@@ -27,16 +28,63 @@ public class App {
             System.out.print("Introduce el numero de la casilla que quieres: ");
             numCasilla = Integer.parseInt(System.console().readLine());
         } while (numCasilla < 1 || numCasilla > 8);
+        numCasilla--;
 
-        asignLetter(letraCasillaInput);
+        asignNum(letraCasillaInput);
 
         casilla[numCasilla][letraCasilla] = 1;
 
         printBox(casilla);
 
+        int aux1 = numCasilla;
+        int aux2 = letraCasilla;
+        while (aux2 > 0 && aux2 < 7 && aux1 > 0 && aux1 < 7) {
+            aux1++;
+            aux2++;
+            casilla[aux1][aux2] = 2;
+        }
+
+        aux1 = numCasilla;
+        aux2 = letraCasilla;
+        while (aux2 > 0 && aux2 < 7 && aux1 > 0 && aux1 < 7) {
+            aux1--;
+            aux2--;
+            casilla[aux1][aux2] = 2;
+        }
+
+        aux1 = numCasilla;
+        aux2 = letraCasilla;
+        while (aux2 > 0 && aux2 < 7 && aux1 > 0 && aux1 < 7) {
+            aux1--;
+            aux2++;
+            casilla[aux1][aux2] = 2;
+        }
+
+        aux1 = numCasilla;
+        aux2 = letraCasilla;
+        while (aux2 > 0 && aux2 < 7 && aux1 > 0 && aux1 < 7) {
+            aux1++;
+            aux2--;
+            casilla[aux1][aux2] = 2;
+        }
+
+
+        System.out.printf("%nEl alfil puede ir a: ");
+        for(int i=0; i<8;i++){
+            for(int j=0; j<8; j++){
+                letraFinal = (char)asignLetter(j);
+                if(casilla[i][j] == 2){
+                    System.out.printf("%s%s, ",i+1,letraFinal);
+                }
+            }
+        }
+
+        System.out.println();
+        printBox(casilla);
+
     }
 
-    public static int asignLetter(char caracter) {
+    public static int asignNum(char caracter) {
         switch (letraCasillaInput) {
             case 'a':
                 letraCasilla = 0;
@@ -69,6 +117,39 @@ public class App {
         return letraCasilla;
     }
 
+    public static int asignLetter(int numero) {
+        switch (numero) {
+            case 0:
+                letraFinal = 'a';
+                break;
+            case 1:
+                letraFinal = 'b';
+                break;
+            case 2:
+                letraFinal = 'c';
+                break;
+            case 3:
+                letraFinal = 'd';
+                break;
+            case 4:
+                letraFinal = 'e';
+                break;
+            case 5:
+                letraFinal = 'f';
+                break;
+            case 6:
+                letraFinal = 'g';
+                break;
+            case 7:
+                letraFinal = 'h';
+                break;
+            default:
+                System.out.println("Introduce numero válido");
+                break;
+        }
+        return letraFinal;
+    }
+
     public static void printBox(int n[][]) {
         System.out.println();
         for (int i = -1; i <= 8; i++) {
@@ -87,7 +168,7 @@ public class App {
 
                 if (j > -1 && j < 8 && i > -1 && i < 8) {
                     System.out.printf("%s",
-                            (casilla[i][j] == casilla[numCasilla][letraCasilla]) ? FONDO_ROJO + "  " + RESET
+                            (casilla[i][j] == 1) ? FONDO_ROJO + "  " + RESET : (casilla[i][j] == 2)?FONDO_ROJO + "  " + RESET
                                     : (color) ? FONDO_BLANCO + "  " + RESET : FONDO_NEGRO + "  " + RESET);
                 }
 
