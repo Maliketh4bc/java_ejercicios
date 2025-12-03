@@ -1,21 +1,21 @@
 public class App {
 
-    static final String FONDO_NEGRO = "\u001B[40m";
-    static final String FONDO_BLANCO = "\u001B[47m";
-    static final String FONDO_ROJO = "\u001B[41m";
-    static final String FONDO_CYAN = "\u001B[46m";
-    static final String RESET = "\033[0m";
+    public static final String FONDO_NEGRO = "\u001B[40m";
+    public static final String FONDO_BLANCO = "\u001B[47m";
+    public static final String FONDO_ROJO = "\u001B[41m";
+    public static final String FONDO_CYAN = "\u001B[46m";
+    public static final String RESET = "\033[0m";
 
     static int option = 0;
 
-    static int casilla[][] = new int[8][8];
+    public static int casilla[][] = new int[8][8];
     static String ficha[] = {"peón","torre","caballo","alfil","rey","reina"};
 
     static char letraCasillaInput = ' ';
     static int letraCasilla = 0;
     static int numCasilla = 0;
     
-    static boolean color = false;
+    public static boolean color = false;
 
     public static void main(String[] args) throws Exception {
         do{ 
