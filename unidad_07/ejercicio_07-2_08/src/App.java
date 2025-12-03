@@ -1,23 +1,85 @@
 public class App {
 
-    public static final String FONDO_NEGRO = "\u001B[40m";
-    public static final String FONDO_BLANCO = "\u001B[47m";
-    public static final String FONDO_ROJO = "\u001B[41m";
-    public static final String RESET = "\033[0m";
+    static final String FONDO_NEGRO = "\u001B[40m";
+    static final String FONDO_BLANCO = "\u001B[47m";
+    static final String FONDO_ROJO = "\u001B[41m";
+    static final String FONDO_CYAN = "\u001B[46m";
+    static final String RESET = "\033[0m";
+
+    static int option = 0;
 
     static int casilla[][] = new int[8][8];
+    static String ficha[] = {"peón","torre","caballo","alfil","rey","reina"};
 
     static char letraCasillaInput = ' ';
     static int letraCasilla = 0;
     static int numCasilla = 0;
-
-    static char letraFinal = ' ';
     
     static boolean color = false;
 
     public static void main(String[] args) throws Exception {
 
         printBox(casilla);
+
+        reqCasilla();
+
+        System.out.println("Introduce con que ficha quieres jugar:");
+        int cont=0;
+        for(String palabra : ficha){
+            System.out.printf("%s %s%n",cont + ".",palabra);
+            cont++;
+        }
+        option = Integer.parseInt(System.console().readLine());
+
+        casilla[numCasilla][letraCasilla] = 1;
+
+        printBox(casilla);
+
+        setMovement(option);
+
+        posiblesMovimientos();
+
+        printBox(casilla);
+
+    }
+
+    /**
+     * Función para Imprimir el tablero de ajedrez junto con la
+     * casilla seleccionada y las posibles rutas del alfil.
+     * @param n
+     */
+    public static void printBox(int n[][]) {
+        System.out.println();
+        for (int i = -1; i <= 8; i++) {
+
+            if (i == -1) {
+                for (char j = 'a' - 1; j <= 'h'; j++) System.out.printf("%s ", (j == 'a' - 1 || j == 8) ? "" : j);
+            }
+
+            for (int j = -1; j <= 8; j++) {
+
+                if (j == -1 && i >= 0 && i < 8) System.out.print(i + 1);
+                if (j != 8) color = !color;
+
+                if (j > -1 && j < 8 && i > -1 && i < 8) {
+                    System.out.printf("%s",
+                            (casilla[i][j] == 1) ? FONDO_CYAN + "  " + RESET : (casilla[i][j] == 2)?FONDO_ROJO + "  " + RESET
+                                    : (color) ? FONDO_BLANCO + "  " + RESET : FONDO_NEGRO + "  " + RESET);
+                }
+
+                if (j == 8 && i >= 0 && i < 8) System.out.print(i + 1);
+            }
+
+            if (i == 8) {
+                for (char j = 'a' - 1; j <= 'h'; j++) System.out.printf("%s ", (j == 'a' - 1 || j == 8) ? "" : j);
+            }
+
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public static void reqCasilla(){
 
         do {
             System.out.print("Introduce la letra de la casilla que quieres: ");
@@ -30,159 +92,68 @@ public class App {
         } while (numCasilla < 1 || numCasilla > 8);
         numCasilla--;
 
-        asignNum(letraCasillaInput);
-
-        casilla[numCasilla][letraCasilla] = 1;
-
-        printBox(casilla);
-
-        int aux1 = numCasilla;
-        int aux2 = letraCasilla;
-        while (aux2 > 0 && aux2 < 7 && aux1 > 0 && aux1 < 7) {
-            aux1++;
-            aux2++;
-            casilla[aux1][aux2] = 2;
-        }
-
-        aux1 = numCasilla;
-        aux2 = letraCasilla;
-        while (aux2 > 0 && aux2 < 7 && aux1 > 0 && aux1 < 7) {
-            aux1--;
-            aux2--;
-            casilla[aux1][aux2] = 2;
-        }
-
-        aux1 = numCasilla;
-        aux2 = letraCasilla;
-        while (aux2 > 0 && aux2 < 7 && aux1 > 0 && aux1 < 7) {
-            aux1--;
-            aux2++;
-            casilla[aux1][aux2] = 2;
-        }
-
-        aux1 = numCasilla;
-        aux2 = letraCasilla;
-        while (aux2 > 0 && aux2 < 7 && aux1 > 0 && aux1 < 7) {
-            aux1++;
-            aux2--;
-            casilla[aux1][aux2] = 2;
-        }
-
-
-        System.out.printf("%nEl alfil puede ir a: ");
-        for(int i=0; i<8;i++){
-            for(int j=0; j<8; j++){
-                letraFinal = (char)asignLetter(j);
-                if(casilla[i][j] == 2){
-                    System.out.printf("%s%s, ",i+1,letraFinal);
-                }
-            }
-        }
-
-        System.out.println();
-        printBox(casilla);
+        letraCasilla = letraCasillaInput-97;
 
     }
 
-    public static int asignNum(char caracter) {
-        switch (letraCasillaInput) {
-            case 'a':
-                letraCasilla = 0;
-                break;
-            case 'b':
-                letraCasilla = 1;
-                break;
-            case 'c':
-                letraCasilla = 2;
-                break;
-            case 'd':
-                letraCasilla = 3;
-                break;
-            case 'e':
-                letraCasilla = 4;
-                break;
-            case 'f':
-                letraCasilla = 5;
-                break;
-            case 'g':
-                letraCasilla = 6;
-                break;
-            case 'h':
-                letraCasilla = 7;
-                break;
-            default:
-                System.out.println("Introduce letra válida");
-                break;
-        }
-        return letraCasilla;
-    }
+    public static void setMovement(int option){
 
-    public static int asignLetter(int numero) {
-        switch (numero) {
+        switch (option) {
             case 0:
-                letraFinal = 'a';
+                
                 break;
             case 1:
-                letraFinal = 'b';
+                
                 break;
             case 2:
-                letraFinal = 'c';
+                
                 break;
             case 3:
-                letraFinal = 'd';
-                break;
-            case 4:
-                letraFinal = 'e';
-                break;
-            case 5:
-                letraFinal = 'f';
-                break;
-            case 6:
-                letraFinal = 'g';
-                break;
-            case 7:
-                letraFinal = 'h';
-                break;
-            default:
-                System.out.println("Introduce numero válido");
-                break;
-        }
-        return letraFinal;
-    }
 
-    public static void printBox(int n[][]) {
-        System.out.println();
-        for (int i = -1; i <= 8; i++) {
-
-            if (i == -1) {
-                for (char letrilla = 'a' - 1; letrilla <= 'h'; letrilla++)
-                    System.out.printf("%s ", (letrilla == 'a' - 1 || letrilla == 8) ? "" : letrilla);
-            }
-
-            for (int j = -1; j <= 8; j++) {
-
-                if (j == -1 && i >= 0 && i < 8)
-                    System.out.print(i + 1);
-                if (j != 8)
-                    color = !color;
-
-                if (j > -1 && j < 8 && i > -1 && i < 8) {
-                    System.out.printf("%s",
-                            (casilla[i][j] == 1) ? FONDO_ROJO + "  " + RESET : (casilla[i][j] == 2)?FONDO_ROJO + "  " + RESET
-                                    : (color) ? FONDO_BLANCO + "  " + RESET : FONDO_NEGRO + "  " + RESET);
+                for(int i=0; i<4; i++){
+                    int num1 = (i==0 || i==3)?1:-1;
+                    int num2 = (i==0 || i==2)?1:-1;
+                    int aux1 = numCasilla;
+                    int aux2 = letraCasilla;
+                    while (aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8) {
+                        aux1 += num1;
+                        aux2 += num2;
+                        if(aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8)casilla[aux1][aux2] = 2;
+                    }
                 }
 
-                if (j == 8 && i >= 0 && i < 8)
-                    System.out.print(i + 1);
-            }
+                break;
+            case 4:
 
-            if (i == 8) {
-                for (char letrilla = 'a' - 1; letrilla <= 'h'; letrilla++)
-                    System.out.printf("%s ", (letrilla == 'a' - 1 || letrilla == 8) ? "" : letrilla);
-            }
+                for(int i=0; i<3; i++){
+                    for(int j=0; j<3; j++) {
+                        int numero = (i==0)?-1:(i==2)?1:0;
+                        int letra = (i==0 || i==2)?1:-1;
+                        int aux1 = numCasilla;
+                        int aux2 = letraCasilla;
+                        if(aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8)casilla[aux1][aux2] = 2;
+                    }
+                }
 
-            System.out.println();
+                break;
+            case 5:
+                
+                break;
+            default:
+                System.out.println("Introduce pieza existente");
+                break;
         }
+    }
+
+    public static void posiblesMovimientos(){
+
+        System.out.printf("%n%s puede ir a: ",ficha[option]);
+        for(int i=0; i<8;i++){
+            for(int j=0; j<8; j++){
+                if(casilla[i][j] == 2) System.out.printf("%s%s%s ",(char)(j+97),i+1,(i!=7)?",":"."); 
+            }
+        }
+
     }
 
 }
