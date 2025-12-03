@@ -18,29 +18,38 @@ public class App {
     static boolean color = false;
 
     public static void main(String[] args) throws Exception {
+        do{ 
+            for(int i=0; i<8; i++){
+                for(int j=0; j<8; j++){
+                    casilla[i][j] = 0;
+                }
+            }
+            printBox(casilla);
+            reqCasilla();
 
-        printBox(casilla);
+            System.out.println("Introduce con que pieza quieres jugar:");
+            int cont=0;
+            for(String palabra : ficha){
+                System.out.printf("%s %s%n",cont + ".",palabra);
+                cont++;
+            }
+            System.out.println("6. Salir");
+            option = Integer.parseInt(System.console().readLine());
 
-        reqCasilla();
+            casilla[numCasilla][letraCasilla] = 1;
 
-        System.out.println("Introduce con que ficha quieres jugar:");
-        int cont=0;
-        for(String palabra : ficha){
-            System.out.printf("%s %s%n",cont + ".",palabra);
-            cont++;
-        }
-        option = Integer.parseInt(System.console().readLine());
+            limpiarPantalla();
+            printBox(casilla);
 
-        casilla[numCasilla][letraCasilla] = 1;
+            setMovement(option);
 
-        printBox(casilla);
+            posiblesMovimientos();
 
-        setMovement(option);
+            printBox(casilla);
+            Thread.sleep(2000);
+            limpiarPantalla();
 
-        posiblesMovimientos();
-
-        printBox(casilla);
-
+        }while(option != 6);
     }
 
     /**
@@ -79,6 +88,10 @@ public class App {
         System.out.println();
     }
 
+    /**
+     * Función para pedir al usuario las dos coordenadas del
+     * tablero para colocar su pieza.
+     */
     public static void reqCasilla(){
 
         do {
@@ -96,19 +109,53 @@ public class App {
 
     }
 
+    /**
+     * Función en la que clasifica el movimiento que tiene que
+     * seguir según la opcion que haya escogido el usuario.
+     * @param option
+     */
     public static void setMovement(int option){
 
         switch (option) {
-            case 0:
-                
+            case 0: // peon
+                for(int i=0; i<3; i++){
+                    for(int j=0; j<3; j++) {
+                        int num1 = (i==0 && (j==0 || j==2))?-1:0;
+                        int num2 = (j==0 && i==0)?-1:(j==2 && i==0)?1:0;
+                        int aux1 = numCasilla;
+                        int aux2 = letraCasilla;
+                        aux1 += num1;
+                        aux2 += num2;
+                        if(aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8)casilla[aux1][aux2] = 2;
+                        if(aux1 == numCasilla && aux2 == letraCasilla) casilla[aux1][aux2] = 1;
+                    }
+                }
                 break;
-            case 1:
-                
+            case 1: // torre
+                for(int i=0; i<4; i++){
+                    int num1 = (i==0 || i==2)?1:-1;
+                    int num2 = (i==1 || i==3)?1:-1;
+                    int aux1 = numCasilla;
+                    int aux2 = letraCasilla;
+                    while (aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8) {
+                        aux1 += (i==0 || i==3)?num1:0;
+                        aux2 += (i==1 || i==2)?num2:0;
+                        if(aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8)casilla[aux1][aux2] = 2;
+                    }
+                }
                 break;
-            case 2:
-                
+            case 2: // caballo
+                int[][] movimientos = {{-2, 1}, {-2, -1},{2, 1}, {2, -1},{-1, 2}, {-1, -2},{1, 2}, {1, -2}};
+                for(int i=0; i<8; i++){
+                    int aux1 = numCasilla;
+                    int aux2 = letraCasilla;
+                    aux1 += movimientos[i][0];
+                    aux2 += movimientos[i][1];
+
+                    if(aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8) casilla[aux1][aux2] = 2;
+                }
                 break;
-            case 3:
+            case 3: // alfil
 
                 for(int i=0; i<4; i++){
                     int num1 = (i==0 || i==3)?1:-1;
@@ -123,21 +170,46 @@ public class App {
                 }
 
                 break;
-            case 4:
+            case 4: // rey
 
                 for(int i=0; i<3; i++){
                     for(int j=0; j<3; j++) {
-                        int numero = (i==0)?-1:(i==2)?1:0;
-                        int letra = (i==0 || i==2)?1:-1;
+                        int num1 = (i==0)?-1:(i==2)?1:0;
+                        int num2 = (j==0)?-1:(j==2)?1:0;
                         int aux1 = numCasilla;
                         int aux2 = letraCasilla;
+                        aux1 += num1;
+                        aux2 += num2;
                         if(aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8)casilla[aux1][aux2] = 2;
+                        if(aux1 == numCasilla && aux2 == letraCasilla) casilla[aux1][aux2] = 1;
                     }
                 }
 
                 break;
-            case 5:
-                
+            case 5: // reina
+                for(int i=0; i<4; i++){
+                    int num1 = (i==0 || i==2)?1:-1;
+                    int num2 = (i==1 || i==3)?1:-1;
+                    int aux1 = numCasilla;
+                    int aux2 = letraCasilla;
+                    while (aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8) {
+                        aux1 += (i==0 || i==3)?num1:0;
+                        aux2 += (i==1 || i==2)?num2:0;
+                        if(aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8)casilla[aux1][aux2] = 2;
+                    }
+                }
+
+                for(int i=0; i<4; i++){
+                    int num1 = (i==0 || i==3)?1:-1;
+                    int num2 = (i==0 || i==2)?1:-1;
+                    int aux1 = numCasilla;
+                    int aux2 = letraCasilla;
+                    while (aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8) {
+                        aux1 += num1;
+                        aux2 += num2;
+                        if(aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8)casilla[aux1][aux2] = 2;
+                    }
+                }
                 break;
             default:
                 System.out.println("Introduce pieza existente");
@@ -145,6 +217,9 @@ public class App {
         }
     }
 
+    /**
+     * Imprimir en texto las casillas posibles
+     */
     public static void posiblesMovimientos(){
 
         System.out.printf("%n%s puede ir a: ",ficha[option]);
@@ -156,4 +231,23 @@ public class App {
 
     }
 
+    /**
+     * Limpiar pantalla
+     */
+    public static void limpiarPantalla() {
+        try {
+            String sistemaOperativo = System.getProperty("os.name");
+            
+            if (sistemaOperativo.contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch (Exception e) {
+            // Fallback: imprimir líneas en blanco
+            for (int i = 0; i < 50; i++) {
+                System.out.println();
+            }
+        }
+    }
 }
