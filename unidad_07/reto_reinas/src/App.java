@@ -86,12 +86,7 @@ public class App {
                 aux1 += (i==0 || i==3)?num1:0;
                 aux2 += (i==1 || i==2)?num2:0;
 
-                if(casilla[aux1][aux2] == 1){
-                    casilla[aux1][aux2] = 200;
-                    posible = false;
-                }else if((aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8) && casilla[aux1][aux2] != 1){
-                    casilla[aux1][aux2] = 2;
-                }
+                if((aux2 >= 0 && aux2 < 8 && aux1 >= 0 && aux1 < 8) && casilla[aux1][aux2] != 1) casilla[aux1][aux2] = 2;
                 if(aux1 == numCasilla && aux2 == letraCasilla) casilla[aux1][aux2] = 1;
             }
         }
