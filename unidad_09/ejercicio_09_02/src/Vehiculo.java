@@ -4,6 +4,7 @@ public class Vehiculo {
     private static int vehiculosCreados = 0;
 
     Vehiculo (){
-        
+        vehiculosCreados++;
     }
+    
 }
