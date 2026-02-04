@@ -7,6 +7,6 @@ public class Ladron extends Atomo{
     }
 
     public String toString(){
-        return "L";
+        return "L░";
     }
 }
