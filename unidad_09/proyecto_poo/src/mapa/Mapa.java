@@ -18,34 +18,32 @@ public class Mapa{
     }
 
     public void generarLadron(){
-        int cantidad = 1;//(int)((Math.random()*(alto*ancho))*0.02);
+        int cantidad = (int)((Math.random()*(alto*ancho))*0.02);
 
         for(int i=0; i<cantidad; i++){
             int randalto = (int)(Math.random()*alto);
             int randancho = (int)(Math.random()*ancho);
 
             atomo[randalto][randancho] = new Ladron(randancho,randalto);
-            Posicion posicionLadron = new Posicion(randancho,randalto);
         }
 
     }
 
     public void generarPolicia(){
 
-        int cantidad = 1;//(int)((Math.random()*(alto*ancho))*0.02);
+        int cantidad = (int)((Math.random()*(alto*ancho))*0.02);
 
         for(int i=0; i<cantidad; i++){
             int randalto = (int)(Math.random()*alto);
             int randancho = (int)(Math.random()*ancho);
 
             atomo[randalto][randancho] = new Policia(randancho,randalto);
-            Posicion posicionPolicia = new Posicion(randancho,randalto);
         }
     }
 
     public void generarCaja(){
 
-        int cantidad = 1;//(int)((Math.random()*(alto*ancho))*0.03);
+        int cantidad = (int)((Math.random()*(alto*ancho))*0.03);
 
         for(int i=0; i<cantidad; i++){
             int randalto = (int)(Math.random()*alto);
