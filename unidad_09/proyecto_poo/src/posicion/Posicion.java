@@ -9,11 +9,11 @@ public class Posicion {
         this.y = y;
     }
 
-    public int getX() {
+    public int getcordX() {
         return x;
     }
 
-    public int getY() {
+    public int getcordY() {
         return y;
     }
 
@@ -24,5 +24,13 @@ public class Posicion {
     public void setY(int y) {
         this.y = y;
     }
-    
+
+    public int calcularDistancia(Posicion presa){
+
+        int distancia;
+
+        distancia = Math.abs(presa.x - this.x) + Math.abs(presa.y - this.y);
+
+        return distancia;
+    }
 }

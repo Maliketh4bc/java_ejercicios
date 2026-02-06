@@ -5,9 +5,9 @@ public class App {
 
         Mapa mapa = new Mapa(40, 80);
 
-        mapa.generarLadron();
+        mapa.generarLadrones();
 
-        mapa.generarPolicia();
+        mapa.generarPolicias();
 
         mapa.generarCaja();
 
