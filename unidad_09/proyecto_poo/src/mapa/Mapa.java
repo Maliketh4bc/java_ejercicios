@@ -11,7 +11,9 @@ public class Mapa{
     private int alto;
     private int ancho;
     private Atomo atomo[][];
-    private ArrayList<Atomo> ladrones = new ArrayList<Atomo>();
+    private ArrayList<Ladron> ladrones = new ArrayList<Ladron>();
+    private ArrayList<Policia> policias = new ArrayList<Policia>();
+    private ArrayList<Caja> cajas = new ArrayList<Caja>();
 
     public Mapa(int alto, int ancho){
         this.alto = alto;
@@ -27,11 +29,11 @@ public class Mapa{
             int randancho = (int)(Math.random()*ancho);
 
             atomo[randalto][randancho] = new Ladron(randancho,randalto);
-            ladrones.add(atomo[randalto][randancho]);
+            ladrones.add((Ladron)atomo[randalto][randancho]);
         }
     }
 
-    public ArrayList<Atomo> getLadrones(){
+    public ArrayList<Ladron> getLadrones(){
         return ladrones;
     }
 
@@ -44,7 +46,12 @@ public class Mapa{
             int randancho = (int)(Math.random()*ancho);
 
             atomo[randalto][randancho] = new Policia(randancho,randalto);
+            policias.add((Policia)atomo[randalto][randancho]);
         }
+    }
+
+    public ArrayList<Policia> getPolicias() {
+        return policias;
     }
 
     public void generarCaja(){
@@ -56,8 +63,26 @@ public class Mapa{
             int randancho = (int)(Math.random()*ancho);
 
             atomo[randalto][randancho] = new Caja(randancho,randalto);
+            cajas.add((Caja)atomo[randalto][randancho]);
         }
     }
+
+    public void moverPolicia(){
+        for (int i = 0; i < policias.size(); i++) {
+            Policia policia = policias.get(i);
+            
+            int beforeX = policia.getX();
+            int beforeY = policia.getY();
+            int newX = beforeX + 1;
+            
+            if (newX < ancho) {
+                policia.setX(newX);
+                atomo[beforeY][beforeX] = null;
+                atomo[beforeY][newX] = policia;   
+            }
+        }
+    }
+
 
     public void Pintar(){
 

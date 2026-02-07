@@ -14,7 +14,7 @@ public class Policia extends Atomo{
         Atomo aBuscar = null;
         for (int i=0; i<ladrones.size(); i++) {
             Atomo ladron = ladrones.get(i);
-            int distancia = this.CalcularDistancia(ladron.getPosicion());
+            int distancia = this.calcularDistancia(ladron.getPosicion());
         
             if(distancia < min){
                 min = distancia;

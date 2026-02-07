@@ -25,6 +25,14 @@ public abstract class Atomo {
         return posicion.getcordY();
     }
 
+    public void setX(int x){
+        posicion.setX(x);
+    }
+
+    public void setY(int y){
+        posicion.setY(y);
+    }
+
     public int calcularDistancia(Posicion presa){
         return this.posicion.calcularDistancia(presa);
     }
