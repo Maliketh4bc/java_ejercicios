@@ -7,6 +7,6 @@ public class Caja extends Atomo{
     }
 
     public String toString(){
-        return "C░";
+        return "\033[1m\033[93m██\033[0m";
     }
 }

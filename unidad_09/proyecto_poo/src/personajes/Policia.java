@@ -25,6 +25,6 @@ public class Policia extends Atomo{
 
     @Override
     public String toString(){
-        return "P░";
+        return "\033[1m\033[94mP \033[0m";
     }
 }

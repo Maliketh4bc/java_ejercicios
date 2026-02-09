@@ -3,7 +3,7 @@ import mapa.Mapa;
 public class App {
     public static void main(String[] args) throws Exception{
 
-        Mapa mapa = new Mapa(40, 80);
+        Mapa mapa = new Mapa(20, 40);
 
         mapa.generarLadrones();
 
@@ -14,7 +14,8 @@ public class App {
         do {
             mapa.Pintar();
             mapa.moverPolicia();
-            Thread.sleep(500);
+            mapa.moverLadron();
+            Thread.sleep(100);
             limpiarPantalla();
         } while (mapa.getVictoria() == false);
 
