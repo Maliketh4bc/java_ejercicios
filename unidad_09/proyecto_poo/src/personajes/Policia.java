@@ -1,6 +1,4 @@
 package personajes;
-import mapa.Mapa;
-import posicion.Posicion;
 import java.util.ArrayList;
 
 public class Policia extends Atomo{
@@ -9,11 +7,11 @@ public class Policia extends Atomo{
         super(cordx, cordy);
     }
 
-    public Atomo buscarLadronCercano(ArrayList<Atomo> ladrones){
+    public Ladron buscarLadronCercano(ArrayList<Ladron> ladrones){
         int min = Integer.MAX_VALUE;
-        Atomo aBuscar = null;
+        Ladron aBuscar = null;
         for (int i=0; i<ladrones.size(); i++) {
-            Atomo ladron = ladrones.get(i);
+            Ladron ladron = ladrones.get(i);
             int distancia = this.calcularDistancia(ladron.getPosicion());
         
             if(distancia < min){
