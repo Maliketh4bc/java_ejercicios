@@ -2,7 +2,7 @@ package mapa;
 import personajes.Atomo;
 import personajes.Ladron;
 import personajes.Policia;
-import personajes.Caja;
+import personajes.*;
 import java.util.ArrayList;
 
 public class Mapa{
