@@ -32,9 +32,10 @@ public class Mapa{
         for(int i=0; i<cantidad; i++){
             int randalto = (int)(Math.random()*alto);
             int randancho = (int)(Math.random()*ancho);
-
-            atomo[randalto][randancho] = new Ladron(randancho,randalto);
-            ladrones.add((Ladron)atomo[randalto][randancho]);
+        
+            Ladron ladron = new Ladron(randancho,randalto);
+            atomo[randalto][randancho] = ladron;
+            ladrones.add(ladron);
         }
     }
 
@@ -50,8 +51,9 @@ public class Mapa{
             int randalto = (int)(Math.random()*alto);
             int randancho = (int)(Math.random()*ancho);
 
-            atomo[randalto][randancho] = new Policia(randancho,randalto);
-            policias.add((Policia)atomo[randalto][randancho]);
+            Policia policia = new Policia(randancho,randalto);
+            atomo[randalto][randancho] = policia;
+            policias.add(policia);
         }
     }
 
@@ -80,20 +82,23 @@ public class Mapa{
             int beforeX = aMover.getX();
             int beforeY = aMover.getY();
             int newX = beforeX + 1;
+            Policia policia = null;
 
-            if (newX < ancho) {
+            if (newX < ancho && atomo[beforeY][newX] == policia) {
                 aMover.setX(newX);
                 atomo[beforeY][beforeX] = null;
                 atomo[beforeY][newX] = aMover;   
             }
+
     }
 
     public void reducirX(Atomo aMover){
             int beforeX = aMover.getX();
             int beforeY = aMover.getY();
             int newX = beforeX - 1;
+            Policia policia = null;
 
-            if (newX >= 0) {
+            if (newX >= 0 && atomo[beforeY][newX] == policia) {
                 aMover.setX(newX);
                 atomo[beforeY][beforeX] = null;
                 atomo[beforeY][newX] = aMover;   
@@ -104,8 +109,9 @@ public class Mapa{
             int beforeX = aMover.getX();
             int beforeY = aMover.getY();
             int newY = beforeY + 1;
+            Policia policia = null;
 
-            if (newY < alto) {
+            if (newY < alto && atomo[newY][beforeX] == policia) {
                 aMover.setY(newY);
                 atomo[beforeY][beforeX] = null;
                 atomo[newY][beforeX] = aMover;   
@@ -116,8 +122,9 @@ public class Mapa{
             int beforeX = aMover.getX();
             int beforeY = aMover.getY();
             int newY = beforeY - 1;
+            Policia policia = null;
 
-            if (newY >= 0) {
+            if (newY >= 0 && atomo[newY][beforeX] == policia) {
                 aMover.setY(newY);
                 atomo[beforeY][beforeX] = null;
                 atomo[newY][beforeX] = aMover;   
@@ -134,7 +141,10 @@ public class Mapa{
                 return;
             }
 
-            if(hunter.getX() == aBuscar.getX() && hunter.getY() == aBuscar.getY()){
+            if(hunter.getX() == aBuscar.getX()-1 && hunter.getY() == aBuscar.getY() || 
+                hunter.getX() == aBuscar.getX()+1 && hunter.getY() == aBuscar.getY() ||
+                    hunter.getX() == aBuscar.getX() && hunter.getY() == aBuscar.getY()+1 ||
+                        hunter.getX() == aBuscar.getX() && hunter.getY() == aBuscar.getY()-1){
 
                 atomo[aBuscar.getY()][aBuscar.getX()] = null;
 
@@ -171,17 +181,19 @@ public class Mapa{
         for (int i = 0; i < ladrones.size(); i++){
             Ladron presa = ladrones.get(i);
             Policia hunter = presa.buscarPoliciaCercano(policias);
+            if ((presa.calcularDistancia(hunter.getPosicion()) < 10)) {
 
-            if(presa.getX() < hunter.getX()){
-                reducirX(presa);
-            }else{
-                aumentarX(presa);
-            }
+                    if(presa.getX() < hunter.getX()){
+                        reducirX(presa);
+                    }else{
+                        aumentarX(presa);
+                    }
 
-            if(presa.getY() < hunter.getY()){
-                reducirY(presa);
-            }else{
-                aumentarY(presa);
+                    if(presa.getY() < hunter.getY()){
+                        reducirY(presa);
+                    }else{
+                        aumentarY(presa);
+                    }
             }
         }
     }

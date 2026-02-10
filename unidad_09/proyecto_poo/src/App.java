@@ -16,12 +16,13 @@ public class App {
             mapa.Pintar();
             mapa.moverPolicia();
             mapa.moverLadron();
-            Thread.sleep(100);
+            Thread.sleep(1);
             limpiarPantalla();
         } while (mapa.getVictoria() == false);
 
         limpiarPantalla();
-
+        mapa.Pintar();
+        Thread.sleep(500);
         System.out.println("VICTORIA DEL DEPARTAMENTO DE POLICIA DE MIAMI");
 
     }
