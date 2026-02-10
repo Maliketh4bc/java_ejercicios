@@ -82,9 +82,8 @@ public class Mapa{
             int beforeX = aMover.getX();
             int beforeY = aMover.getY();
             int newX = beforeX + 1;
-            Policia policia = null;
 
-            if (newX < ancho && atomo[beforeY][newX] == policia) {
+            if (newX < ancho && atomo[beforeY][newX] == null) {
                 aMover.setX(newX);
                 atomo[beforeY][beforeX] = null;
                 atomo[beforeY][newX] = aMover;   
@@ -96,9 +95,8 @@ public class Mapa{
             int beforeX = aMover.getX();
             int beforeY = aMover.getY();
             int newX = beforeX - 1;
-            Policia policia = null;
 
-            if (newX >= 0 && atomo[beforeY][newX] == policia) {
+            if (newX >= 0 && atomo[beforeY][newX] == null) {
                 aMover.setX(newX);
                 atomo[beforeY][beforeX] = null;
                 atomo[beforeY][newX] = aMover;   
@@ -109,9 +107,8 @@ public class Mapa{
             int beforeX = aMover.getX();
             int beforeY = aMover.getY();
             int newY = beforeY + 1;
-            Policia policia = null;
 
-            if (newY < alto && atomo[newY][beforeX] == policia) {
+            if (newY < alto && atomo[newY][beforeX] == null) {
                 aMover.setY(newY);
                 atomo[beforeY][beforeX] = null;
                 atomo[newY][beforeX] = aMover;   
@@ -122,9 +119,8 @@ public class Mapa{
             int beforeX = aMover.getX();
             int beforeY = aMover.getY();
             int newY = beforeY - 1;
-            Policia policia = null;
 
-            if (newY >= 0 && atomo[newY][beforeX] == policia) {
+            if (newY >= 0 && atomo[newY][beforeX] == null) {
                 aMover.setY(newY);
                 atomo[beforeY][beforeX] = null;
                 atomo[newY][beforeX] = aMover;   
