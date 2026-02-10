@@ -27,7 +27,7 @@ public class Mapa{
     }
 
     public void generarLadrones(){
-        int cantidad = (int)((Math.random()*((alto*ancho))*0.02)+2);
+        int cantidad = (int)((Math.random()*((alto*ancho))*0.03)+2);
 
         for(int i=0; i<cantidad; i++){
             int randalto = (int)(Math.random()*alto);
@@ -45,7 +45,7 @@ public class Mapa{
 
     public void generarPolicias(){
 
-        int cantidad = (int)((Math.random()*((alto*ancho))*0.02)+2);
+        int cantidad = (int)((Math.random()*((alto*ancho))*0.01)+2);
 
         for(int i=0; i<cantidad; i++){
             int randalto = (int)(Math.random()*alto);
