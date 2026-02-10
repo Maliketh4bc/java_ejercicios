@@ -1,7 +1,4 @@
 package mapa;
-import personajes.Atomo;
-import personajes.Ladron;
-import personajes.Policia;
 import personajes.*;
 import java.util.ArrayList;
 
@@ -30,7 +27,7 @@ public class Mapa{
     }
 
     public void generarLadrones(){
-        int cantidad = (int)((Math.random()*((alto*ancho))*0.04)+2);
+        int cantidad = (int)((Math.random()*((alto*ancho))*0.02)+2);
 
         for(int i=0; i<cantidad; i++){
             int randalto = (int)(Math.random()*alto);
@@ -47,7 +44,7 @@ public class Mapa{
 
     public void generarPolicias(){
 
-        int cantidad = (int)((Math.random()*((alto*ancho))*0.03)+2);
+        int cantidad = (int)((Math.random()*((alto*ancho))*0.02)+2);
 
         for(int i=0; i<cantidad; i++){
             int randalto = (int)(Math.random()*alto);
@@ -153,13 +150,13 @@ public class Mapa{
                 }
             }
 
-            if(aBuscar.getX() > hunter.getX()){
+            if(aBuscar.getX() >= hunter.getX()){
                 aumentarX(hunter);
             }else{
                 reducirX(hunter);
             }
 
-            if(aBuscar.getY() > hunter.getY()){
+            if(aBuscar.getY() >= hunter.getY()){
                 aumentarY(hunter);
             }else{
                 reducirY(hunter);
@@ -175,88 +172,29 @@ public class Mapa{
             Ladron presa = ladrones.get(i);
             Policia hunter = presa.buscarPoliciaCercano(policias);
 
-            if(hunter.getX() >= presa.getX()){
+            if(presa.getX() < hunter.getX()){
                 reducirX(presa);
             }else{
-                aumentarX(hunter);
+                aumentarX(presa);
             }
 
-            if(hunter.getY() >= presa.getY()){
-                reducirY(hunter);
+            if(presa.getY() < hunter.getY()){
+                reducirY(presa);
             }else{
-                aumentarY(hunter);
+                aumentarY(presa);
             }
         }
     }
 
 
-    /**
-     * Pinta el mapa usando StringBuilder para evitar parpadeo (doble buffer)
-     */
     public void Pintar(){
-        // Códigos ANSI para colores
-        String RESET = "\033[0m";
-        String CYAN = "\033[96m";
-        String YELLOW = "\033[93m";
-        String GREEN = "\033[92m";
-        String RED = "\033[91m";
-        String BLUE = "\033[94m";
-        String BOLD = "\033[1m";
-        String BG_DARK = "\033[100m";
-        
-        // Usar StringBuilder para construir toda la salida de una vez (doble buffer)
-        StringBuilder buffer = new StringBuilder();
-        
-        // Título de la simulación
-        buffer.append(BOLD).append(CYAN).append("+================================================================+").append(RESET).append("\n");
-        buffer.append(BOLD).append(CYAN).append("|").append(RESET).append(BOLD).append(YELLOW)
-              .append("       SIMULACION POLICIAS VS LADRONES - MIAMI PD              ")
-              .append(CYAN).append("|").append(RESET).append("\n");
-        buffer.append(BOLD).append(CYAN).append("+================================================================+").append(RESET).append("\n");
-        
-        // Leyenda
-        buffer.append(BOLD).append(CYAN).append("|").append(RESET).append("  ")
-              .append(BLUE).append(BOLD).append("[P]").append(RESET).append(BLUE)
-              .append(" Policias: ").append(String.format("%-2d", policias.size())).append(RESET).append("  ")
-              .append(RED).append(BOLD).append("[L]").append(RESET).append(RED)
-              .append(" Ladrones: ").append(String.format("%-2d", ladrones.size())).append(RESET).append("  ")
-              .append(YELLOW).append(BOLD).append("[#]").append(RESET).append(YELLOW)
-              .append(" Cajas: ").append(String.format("%-2d", cajas.size())).append(RESET)
-              .append("           ").append(CYAN).append("|").append(RESET).append("\n");
-        buffer.append(BOLD).append(CYAN).append("+================================================================+").append(RESET).append("\n");
-        buffer.append("\n");
-        
-        // Borde superior del mapa
-        buffer.append(GREEN).append(BOLD).append("╔");
-        for (int j = 0; j < atomo[0].length; j++) {
-            buffer.append("══");
-        }
-        buffer.append("╗").append(RESET).append("\n");
-        
-        // Contenido del mapa
-        for (int i = 0; i < atomo.length; i++){
-            buffer.append(GREEN).append(BOLD).append("║").append(RESET);
+
+        for (int i = 0; i < atomo.length; i++) {
             for (int j = 0; j < atomo[i].length; j++) {
-                if(atomo[i][j] == null) {
-                    buffer.append(BG_DARK).append("  ").append(RESET);
-                } else {
-                    buffer.append(atomo[i][j]);
-                }
+                System.out.printf("%-2s", (atomo[i][j] == null)?"░░":atomo[i][j]);
             }
-            buffer.append(GREEN).append(BOLD).append("║").append(RESET).append("\n");
+            System.out.println();
         }
-        
-        // Borde inferior del mapa
-        buffer.append(GREEN).append(BOLD).append("╚");
-        for (int j = 0; j < atomo[0].length; j++) {
-            buffer.append("══");
-        }
-        buffer.append("╝").append(RESET).append("\n");
-        buffer.append("\n");
-        
-        // Imprimir todo de una vez (evita parpadeo)
-        System.out.print(buffer.toString());
-        System.out.flush();
     }
 
 }
