@@ -16,10 +16,7 @@ import mapa.Mapa;
  */
 public class App {
 
-    /** Código ANSI para texto en color rojo */
     public static final String RED = "\u001B[31m";
-    
-    /** Código ANSI para resetear el color del texto a default */
     public static final String RESET = "\u001B[0m";
     
     /**
@@ -37,7 +34,7 @@ public class App {
      */
     public static void main(String[] args) throws Exception{
 
-        Mapa mapa = new Mapa(40, 80);
+        Mapa mapa = new Mapa(100, 400);
 
         mapa.generarLadrones();
 
@@ -50,7 +47,7 @@ public class App {
         limpiarPantalla();
 
         do {
-            mapa.Pintar();
+            mapa.pintar();
             mapa.moverPolicia();
             mapa.moverLadron();
             Thread.sleep(10);
@@ -58,7 +55,7 @@ public class App {
         } while (mapa.getVictoria() == false);
 
         limpiarPantalla();
-        mapa.Pintar();
+        mapa.pintar();
         Thread.sleep(500);
         System.out.printf(RED + "\nVICTORIA DEL DEPARTAMENTO DE POLICIA DE MIAMI" + RESET);
 

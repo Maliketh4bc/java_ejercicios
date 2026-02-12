@@ -36,14 +36,9 @@ public class Mapa{
      * o ser null si está vacía.
      */
     private Atomo atomo[][];
-    
-    /** Lista dinámica que mantiene todos los ladrones activos en el juego */
+
     private ArrayList<Ladron> ladrones = new ArrayList<Ladron>();
-    
-    /** Lista dinámica que mantiene todos los policías activos en el juego */
     private ArrayList<Policia> policias = new ArrayList<Policia>();
-    
-    /** Lista dinámica que mantiene todas las cajas (obstáculos) del juego */
     private ArrayList<Caja> cajas = new ArrayList<Caja>();
     
     /** 
@@ -369,7 +364,7 @@ public class Mapa{
      * Utiliza códigos ANSI para colores que ya están incluidos
      * en el toString() de cada tipo de átomo.
      */
-    public void Pintar(){
+    public void pintar(){
 
         for (int i = 0; i < atomo.length; i++) {
             for (int j = 0; j < atomo[i].length; j++) {
